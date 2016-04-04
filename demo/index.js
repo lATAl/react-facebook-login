@@ -10,9 +10,8 @@ const responseFacebook = (response) => {
 
 ReactDOM.render(
   <FacebookLogin
-    appId="1088597931155576"
+    appId="1733556690196497"
     autoLoad={true}
-    callback={responseFacebook}
-    icon="fa-facebook" />,
+    callback={responseFacebook} />,
   document.getElementById('demo')
 );

@@ -34,6 +34,7 @@
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.0.0",
     "eslint-plugin-react": "^3.11.3",
+    "file-loader": "^0.8.5",
     "node-sass": "^3.3.x",
     "postcss-loader": "^0.6.0",
     "react": "^0.14.2",
@@ -42,10 +43,14 @@
     "react-dom": "0.14.x",
     "sass-loader": "^3.0.0",
     "style-loader": "0.12.x",
+    "url-loader": "^0.5.7",
     "webpack": "1.12.x",
     "webpack-dev-server": "1.12.x"
   },
   "peerDependencies": {
     "react": "^0.14.x"
+  },
+  "dependencies": {
+    "react": "^0.14.8"
   }
 }

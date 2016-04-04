@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import styles from '../styles/facebook.scss';
+import Icon from 'react-fa';
 
 class FacebookLogin extends React.Component {
 
@@ -15,7 +16,7 @@ class FacebookLogin extends React.Component {
     fields: PropTypes.string,
     cssClass: PropTypes.string,
     version: PropTypes.string,
-    icon: PropTypes.string,
+    // icon: PropTypes.string,
     language: PropTypes.string,
   };
 
@@ -28,11 +29,16 @@ class FacebookLogin extends React.Component {
     fields: 'name',
     cssClass: 'kep-login-facebook',
     version: '2.3',
-    language: 'en_US',
+    language: 'en_US'
   };
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      isFetching: false,
+      isLoggedIn: false
+    };
   }
 
   componentDidMount() {
@@ -70,41 +76,66 @@ class FacebookLogin extends React.Component {
     FB.api('/me', { fields: this.props.fields }, (me) => {
       me.accessToken = authResponse.accessToken;
       this.props.callback(me);
+      this.setState({isFetching: true});
+      this.setState({isLoggedIn: true});
     });
   };
 
   checkLoginState = (response) => {
     if (response.authResponse) {
       this.responseApi(response.authResponse);
+      this.setState({isFetching: true});
+      this.setState({isLoggedIn: false});
     } else {
       if (this.props.callback) {
         this.props.callback({ status: response.status });
+        this.setState({isFetching: false});
+        this.setState({isLoggedIn: false});
       }
     }
   };
 
   click = () => {
+    this.setState({isLoggedIn: false});
+    this.setState({ isFetching: true});
     FB.login(this.checkLoginState, { scope: this.props.scope });
   };
 
-  renderWithFontAwesome() {
-    return (
-      <div>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-         <button
-            className={this.props.cssClass + ' ' + this.props.size}
-            onClick={this.click}>
-          <i className={'fa ' + this.props.icon}></i> {this.props.textButton}
-        </button>
-
-        <style dangerouslySetInnerHTML={{ __html: styles }}></style>
-      </div>
-    )
-  }
+  // renderWithFontAwesome() {
+  //   return (
+  //     <div>
+  //       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+  //        <button
+  //           className={this.props.cssClass + ' ' + this.props.size}
+  //           onClick={this.click}>
+  //         <i className={'fa ' + this.props.icon}></i> {this.props.textButton}
+  //       </button>
+  //
+  //       <style dangerouslySetInnerHTML={{ __html: styles }}></style>
+  //     </div>
+  //   )
+  // }
 
   render() {
-    if (this.props.icon) {
-      return this.renderWithFontAwesome();
+    // if (this.props.icon) {
+    //   return this.renderWithFontAwesome();
+    // }
+
+    // var iconValue = this.props.isFetching == true ?
+
+    var iconFetching;
+    var textLogin;
+
+    if (this.state.isFetching) {
+      iconFetching = <Icon spin name="spinner" />;
+    } else {
+      iconFetching = <Icon name="facebook" />;
+    }
+
+    if (this.state.isLoggedIn) {
+      textLogin = "Logging In...";
+    } else {
+      textLogin = this.props.textButton;
     }
 
     return (
@@ -112,9 +143,9 @@ class FacebookLogin extends React.Component {
         <button
             className={this.props.cssClass + ' ' + this.props.size}
             onClick={this.click}>
-          {this.props.textButton}
+          {iconFetching} {textLogin}
         </button>
-        
+
         <style dangerouslySetInnerHTML={{ __html: styles }}></style>
       </div>
     );
