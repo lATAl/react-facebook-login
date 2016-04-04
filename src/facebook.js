@@ -74,23 +74,23 @@ class FacebookLogin extends React.Component {
 
   responseApi = (authResponse) => {
     FB.api('/me', { fields: this.props.fields }, (me) => {
-      me.accessToken = authResponse.accessToken;
-      this.props.callback(me);
       this.setState({isFetching: true});
       this.setState({isLoggedIn: true});
+      me.accessToken = authResponse.accessToken;
+      this.props.callback(me);
     });
   };
 
   checkLoginState = (response) => {
     if (response.authResponse) {
-      this.responseApi(response.authResponse);
       this.setState({isFetching: true});
       this.setState({isLoggedIn: false});
+      this.responseApi(response.authResponse);
     } else {
       if (this.props.callback) {
-        this.props.callback({ status: response.status });
         this.setState({isFetching: false});
         this.setState({isLoggedIn: false});
+        this.props.callback({ status: response.status });
       }
     }
   };

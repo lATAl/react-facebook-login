@@ -11,7 +11,7 @@ const responseFacebook = (response) => {
 ReactDOM.render(
   <FacebookLogin
     appId="1733556690196497"
-    autoLoad={true}
+    autoLoad={false}
     callback={responseFacebook} />,
   document.getElementById('demo')
 );
