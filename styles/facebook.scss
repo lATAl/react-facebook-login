@@ -22,7 +22,8 @@ $font-family-default: 'Helvetica', sans-serif;
   font-size: calc-responsive(14, 468, 18, 1920);
   text-decoration: none;
   text-transform: uppercase;
-  transition: background-color .3s, border-color .3s;
+  transition: background-color .5s, border-color .5s;
+  transition-timing-function: ease-in;
   background-color: #4C69BA;
   border-color: #4C69BA;
   padding: calc-responsive(15, 468, 20, 1920) calc-responsive(20, 468, 25, 1920);
@@ -46,5 +47,9 @@ $font-family-default: 'Helvetica', sans-serif;
   .fa {
     margin-right: calc-responsive(5, 468, 10, 1920);
   }
-  
+}
+
+.kep-login-facebook:disabled {
+  border-color: #93a5d5;
+  background-color: #8196ce;
 }
