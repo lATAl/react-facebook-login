@@ -73,6 +73,10 @@ class FacebookLogin extends React.Component {
     }(document, 'script', 'facebook-jssdk'));
   }
 
+  componentWillUnmount() {
+    FB._initialized = false;
+  }
+
   checkLoginState = (response) => {
     if (response.authResponse) {
       this.setState({isFetching: false});
