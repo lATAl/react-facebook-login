@@ -46,20 +46,24 @@ class FacebookLogin extends React.Component {
 
     document.body.appendChild(fbRoot);
 
-    window.fbAsyncInit = () => {
-      FB.init({
-        appId: this.props.appId,
-        xfbml: this.props.xfbml,
-        cookie: this.props.cookie,
-        version: 'v' + this.props.version,
-      });
-
-      if (this.props.autoLoad) {
-        FB.getLoginStatus(this.checkLoginState);
-      }
-
+    if (window.FB) {
       this.setState({ isLoading: false });
-    };
+    } else {
+      window.fbAsyncInit = () => {
+        FB.init({
+          appId: this.props.appId,
+          xfbml: this.props.xfbml,
+          cookie: this.props.cookie,
+          version: 'v' + this.props.version,
+        });
+
+        if (this.props.autoLoad) {
+          FB.getLoginStatus(this.checkLoginState);
+        }
+
+        this.setState({ isLoading: false });
+      };
+    }
 
     // Load the SDK asynchronously
     ((d, s, id) => {
@@ -71,10 +75,6 @@ class FacebookLogin extends React.Component {
       js.src = '//connect.facebook.net/' + this.props.language + '/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-  }
-
-  componentWillUnmount() {
-    FB._initialized = false;
   }
 
   checkLoginState = (response) => {
