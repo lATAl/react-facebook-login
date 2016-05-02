@@ -79,7 +79,7 @@ class FacebookLogin extends React.Component {
 
   checkLoginState = (response) => {
     if (response.authResponse) {
-      this.setState({isFetching: false});
+      // this.setState({isFetching: false});
       this.props.callback({success: true, data: response.authResponse});
     } else {
       if (this.props.callback) {
