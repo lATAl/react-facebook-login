@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import styles from '../styles/facebook.scss';
-import Icon from 'react-fa';
+import IconSpinner from 'react-icons/lib/fa/spinner';
+import IconFacebook from 'react-icons/lib/fa/facebook';
 
 class FacebookLogin extends React.Component {
 
@@ -99,10 +100,10 @@ class FacebookLogin extends React.Component {
     var textLogin;
 
     if (this.state.isFetching) {
-      iconFetching = <Icon spin name="spinner" />;
+      iconFetching = <IconSpinner className={"spin"} />;
       textLogin = "Logging In...";
     } else {
-      iconFetching = this.state.isLoading ? <Icon spin name="spinner" /> : <Icon name="facebook" />;
+      iconFetching = this.state.isLoading ? <IconSpinner className={"spin"} /> : <IconFacebook />;
       textLogin = this.state.isLoading ? 'Loading...' : this.props.textButton;
     }
 

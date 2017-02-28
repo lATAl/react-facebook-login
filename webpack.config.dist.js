@@ -17,8 +17,7 @@ module.exports = {
 
   externals: {
     'react': 'react',
-    'react-dom': 'ReactDOM',
-    'react-fa': 'react-fa'
+    'react-dom': 'ReactDOM'
   },
 
   output: {

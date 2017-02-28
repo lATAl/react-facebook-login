@@ -51,6 +51,7 @@
     "react": "^0.14.x"
   },
   "dependencies": {
-    "react": "^0.14.8"
+    "react": "^0.14.8",
+    "react-icons": "^2.2.3"
   }
 }
